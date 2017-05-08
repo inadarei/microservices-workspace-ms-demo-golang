@@ -13,19 +13,17 @@ services:
       - 77701
     ports:
       - 7701:7701
-    environment:
-      - APP_ENV=development
-      - PORT=7701
-      - DBNAME=microservices_demo
-      - DBUSER=microservices_demo
-      - DBPASS=microservices_demo_pw
-      - DBADDR=ms-demo-golang-db:3306
-      - DEBUG=1
     command: /go/bin/CompileDaemon -build="go-wrapper install" -command="go-wrapper run" -exclude-dir=.git
+    env_file:
+      - database.env
     depends_on:
       - ms-demo-golang-db
     links:
       - ms-demo-golang-db
+    environment:
+      - APP_ENV=development
+      - PORT=7701
+      - DEBUG=1      
   ms-demo-golang-db:
     container_name: ms-demo-golang-db
     image: mysql:5.7
@@ -42,4 +40,4 @@ services:
       MYSQL_USER: microservices_demo
       MYSQL_PASSWORD: microservices_demo_pw
 volumes:
-  ms_demo_golang_db_data:      
+  ms_demo_golang_db_data:

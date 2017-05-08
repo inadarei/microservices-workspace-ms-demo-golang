@@ -8,7 +8,7 @@ import (
 )
 
 /**
-* Main entrance into the server.
+* StartServer is the main entrance into the server.
  */
 func StartServer(serverPort string) {
 	http.HandleFunc("/", viewHandler)

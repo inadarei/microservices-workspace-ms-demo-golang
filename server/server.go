@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 /**
-* StartServer is the main entrance into the server.
+* Main entrance into the server.
  */
 func StartServer(serverPort string) {
 	http.HandleFunc("/", viewHandler)
@@ -23,5 +23,5 @@ func StartServer(serverPort string) {
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "text/plain")
 
-	fmt.Fprintf(w, "Hello world! This was pretty awesome! Hot-reloading rocks!\n")
+	fmt.Fprintf(w, "Hello world! This was pretty awesome! Hot-reloading rockssss!\n")
 }

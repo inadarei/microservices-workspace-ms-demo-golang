@@ -1,43 +1,17 @@
-version: "3"
+version: '2'
 
 services:
   ms-demo-golang:
     container_name: ms-demo-golang
-    build:
-      context: .
+    user: root # avoids ton of volume mounting headaches in dev mode.
+    build: .
     volumes:
-      - ./:/go/src/app
-      ## Remove the following line if you are checking-in your dependencies 
-      - /go/src/app/vendor
-    expose:
-      - 77701
+      - .:/home/app
     ports:
-      - 7701:7701
-    command: /go/bin/CompileDaemon -build="go-wrapper install" -command="go-wrapper run" -exclude-dir=.git
-    env_file:
-      - database.env
-    depends_on:
-      - ms-demo-golang-db
-    links:
-      - ms-demo-golang-db
+      - 3737
     environment:
       - APP_ENV=development
-      - PORT=7701
-      - DEBUG=1      
-  ms-demo-golang-db:
-    container_name: ms-demo-golang-db
-    image: mysql:5.7
-    # port mapping not required for microservices but useful for debugging from 
-    # host machine, during development
-    #ports: 
-    #  - 33306:3306
-    volumes:
-      - ms_demo_golang_db_data:/var/lib/mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: verysecretsomething
-      MYSQL_DATABASE: microservices_demo
-      MYSQL_USER: microservices_demo
-      MYSQL_PASSWORD: microservices_demo_pw
-volumes:
-  ms_demo_golang_db_data:
+    command: scripts/build.sh
+
+# @see: https://github.com/pilu/fresh
+# @alt @see: https://github.com/codegangsta/gin

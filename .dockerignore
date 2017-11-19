@@ -3,6 +3,6 @@ Dockerfile
 docker-compose.yml
 LICENSE
 README.md
-gin-bin
 pkg
 bin
+vendor

@@ -1,26 +1,26 @@
 // Note: the comment below after 'main' is a hint to go-wrapper and is meaningful
 // Replace with the package path for your project
-package main // import "github.com/inadarei/justgo"
+package main // import "github.com/inadarei/justgo-microservice"
 
 import (
-	"log"
 	"os"
 
-	"github.com/inadarei/justgo/server"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/inadarei/justgo-microservice/server"
 )
 
 func main() {
-
-	log.Print("Application starting up...")
 
 	// isDevelopment := os.Getenv("APP_ENV") == "development"
 
 	serverPort := os.Getenv("PORT")
 	if serverPort == "" {
 		serverPort = "3737"
-		log.Print("WARNING: no server port supplied in the environment. Defaulting to " + serverPort)
+		log.Warn("WARNING: no server port supplied in the environment. Defaulting to ", serverPort)
 	}
 
+	log.Info("Starting microservice on internal port: ", serverPort)
 	server.StartServer(serverPort)
 }
 

@@ -5,36 +5,36 @@ service:=ms-demo-golang
 
 .PHONY: start
 start:
-	docker-compose -p {project} up -d
+	docker-compose -p ${project} up -d
 
 .PHONY: stop
 stop:
-	docker-compose -p {project} down
+	docker-compose -p ${project} down
 
 .PHONY: logs
 logs:
-	docker-compose -p {project} logs -f ${service}
+	docker-compose -p ${project} logs -f ${service}
 
 .PHONY: ps
 ps:
-	docker-compose -p {project} ps
+	docker-compose -p ${project} ps
 
 .PHONY: shell
 shell:
-	docker-compose -p {project} exec ${service} sh
+	docker-compose -p ${project} exec ${service} sh
 
 .PHONY: build
 build:
-	docker-compose -p {project} build --no-cache
+	docker-compose -p ${project} build --no-cache
 
 .PHONY: dep-add
 dep-add:
-	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -add ${package}
+	docker-compose -p ${project} exec ${service} scripts/env-jmp.sh dep ensure -add ${package}
 
 .PHONY: dep-update
 dep-update:
-	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -update ${package}
+	docker-compose -p ${project} exec ${service} scripts/env-jmp.sh dep ensure -update ${package}
 
 .PHONY: dep-update-all
 dep-update-all:
-	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -update
+	docker-compose -p ${project} exec ${service} scripts/env-jmp.sh dep ensure -update

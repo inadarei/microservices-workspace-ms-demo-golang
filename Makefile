@@ -1,38 +1,40 @@
 default: start
-projname="ms-demo-golang"
+
+project:=ms-workspace-demo
+service:=ms-demo-golang
 
 .PHONY: start
 start:
-	docker-compose up -d
+	docker-compose -p {project} up -d
 
 .PHONY: stop
 stop:
-	docker-compose down
+	docker-compose -p {project} down
 
 .PHONY: logs
 logs:
-	docker-compose logs -f ${projname}
+	docker-compose -p {project} logs -f ${service}
 
 .PHONY: ps
 ps:
-	docker-compose ps
+	docker-compose -p {project} ps
 
 .PHONY: shell
 shell:
-	docker-compose exec ${projname} sh
+	docker-compose -p {project} exec ${service} sh
 
 .PHONY: build
 build:
-	docker-compose build --no-cache
+	docker-compose -p {project} build --no-cache
 
 .PHONY: dep-add
 dep-add:
-	docker-compose exec ${projname} scripts/env-jmp.sh dep ensure -add ${package}
+	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -add ${package}
 
 .PHONY: dep-update
 dep-update:
-	docker-compose exec ${projname} scripts/env-jmp.sh dep ensure -update ${package}
+	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -update ${package}
 
 .PHONY: dep-update-all
 dep-update-all:
-	docker-compose exec ${projname} scripts/env-jmp.sh dep ensure -update
+	docker-compose -p {project} exec ${service} scripts/env-jmp.sh dep ensure -update

@@ -3,11 +3,16 @@ version: '2'
 services:
   ms-demo-golang:
     container_name: ms-demo-golang
+    labels:
+      - "traefik.backend=ms-demo-golang"
+      - "traefik.frontend.rule=PathPrefixStrip: /demogo"    
     user: root # avoids ton of volume mounting headaches in dev mode.
     build: .
     volumes:
       - .:/home/app
     ports:
+      - 3737
+    expose:
       - 3737
     environment:
       - APP_ENV=development
